@@ -27,6 +27,7 @@ import org.jetbrains.kotlin.ir.expressions.*
 import org.jetbrains.kotlin.ir.symbols.IrValueSymbol
 import org.jetbrains.kotlin.ir.symbols.IrVariableSymbol
 import org.jetbrains.kotlin.ir.util.dump
+import org.jetbrains.kotlin.ir.util.getArgumentsWithIr
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.ir.visitors.IrElementVisitor
 import org.jetbrains.kotlin.ir.visitors.transformChildrenVoid
@@ -71,6 +72,8 @@ class SharedVariablesLowering(val context: BackendContext) : BodyLoweringPass {
                         super.visitCall(expression, data)
                         return
                     }
+                    expression.dispatchReceiver?.accept(this, data)
+                    expression.extensionReceiver?.accept(this, data)
                     for (param in callee.valueParameters) {
                         val arg = expression.getValueArgument(param.index) ?: continue
                         if (param.isInlineParameter()
