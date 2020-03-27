@@ -18,6 +18,7 @@ package org.jetbrains.kotlin.backend.common.lower
 
 import org.jetbrains.kotlin.backend.common.BackendContext
 import org.jetbrains.kotlin.backend.common.BodyLoweringPass
+import org.jetbrains.kotlin.backend.common.ir.isInlineParameter
 import org.jetbrains.kotlin.backend.common.phaser.makeIrFilePhase
 import org.jetbrains.kotlin.ir.IrElement
 import org.jetbrains.kotlin.ir.IrStatement
@@ -39,8 +40,6 @@ val sharedVariablesPhase = makeIrFilePhase(
     name = "SharedVariables",
     description = "Transform shared variables"
 )
-
-object CoroutineIntrinsicLambdaOrigin : IrStatementOriginImpl("Coroutine intrinsic lambda")
 
 class SharedVariablesLowering(val context: BackendContext) : BodyLoweringPass {
 
@@ -70,17 +69,14 @@ class SharedVariablesLowering(val context: BackendContext) : BodyLoweringPass {
                     element.acceptChildren(this, data)
                 }
 
-                private fun IrValueParameter.isInlineParameter() =
-                    !isNoinline && !type.isNullable() && (type.isFunction() || type.isSuspendFunction())
-
                 override fun visitCall(expression: IrCall, data: IrDeclarationParent?) {
                     val callee = expression.symbol.owner
                     if (!callee.isInline) {
                         super.visitCall(expression, data)
                         return
                     }
-                    val arguments = expression.getArgumentsWithIr()
-                    for ((param, arg) in arguments) {
+                    for (param in callee.valueParameters) {
+                        val arg = expression.getValueArgument(param.index) ?: continue
                         if (param.isInlineParameter()
                             // This is somewhat conservative but simple.
                             // If a user put redundant <crossinline> modifier on a parameter,

@@ -20,6 +20,18 @@ import org.jetbrains.kotlin.ir.expressions.impl.IrBlockImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrCompositeImpl
 import org.jetbrains.kotlin.ir.visitors.*
 
+/*
+ Here we're extracting some local classes from inline bodies.
+ The mental model of inlining is as following:
+  - for inline lambdas, since we don't see the keyword `inline` at a callsite,
+    it is logical to think that the lambda won't be copied but will be embedded as is at the callsite,
+    so all local classes declared in those inline lambdas are NEVER COPIED.
+  - as for the bodies of inline functions, then it is the opposite - we see the `inline` keyword,
+    so it is only logical to think that this is a macro substitution, so the bodies of inline functions
+    are copied. But the compiler could optimize the usage of some local classes and not copy them.
+    So in this case all local classes MIGHT BE COPIED.
+ */
+
 class LocalClassesInInlineLambdasLowering(val context: CommonBackendContext) : BodyLoweringPass {
     override fun lower(irFile: IrFile) {
         runOnFilePostfix(irFile, allowDeclarationModification = true)

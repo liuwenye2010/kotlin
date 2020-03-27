@@ -10,10 +10,8 @@ import org.jetbrains.kotlin.backend.common.*
 import org.jetbrains.kotlin.backend.common.ir.Symbols
 import org.jetbrains.kotlin.backend.common.ir.createTemporaryVariableWithWrappedDescriptor
 import org.jetbrains.kotlin.backend.common.ir.isInlineParameter
-import org.jetbrains.kotlin.backend.common.lower.CoroutineIntrinsicLambdaOrigin
 import org.jetbrains.kotlin.backend.common.lower.createIrBuilder
 import org.jetbrains.kotlin.config.languageVersionSettings
-import org.jetbrains.kotlin.descriptors.ValueDescriptor
 import org.jetbrains.kotlin.ir.IrElement
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
@@ -159,7 +157,7 @@ class FunctionInlining(val context: CommonBackendContext) : IrElementTransformer
                 endOffset = callSite.endOffset,
                 type = callSite.type,
                 symbol = irReturnableBlockSymbol,
-                origin = if (isCoroutineIntrinsicCall) CoroutineIntrinsicLambdaOrigin else null,
+                origin = null,
                 statements = statements,
                 inlineFunctionSymbol = callee.symbol
             ).apply {
