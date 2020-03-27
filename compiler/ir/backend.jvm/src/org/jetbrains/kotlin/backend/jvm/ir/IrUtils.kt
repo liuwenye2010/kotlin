@@ -149,9 +149,6 @@ fun IrFunction.hasPlatformDependent(): Boolean = propertyIfAccessor.hasAnnotatio
 fun IrFunction.getJvmVisibilityOfDefaultArgumentStub() =
     if (Visibilities.isPrivate(visibility) || isInlineOnly()) JavaVisibilities.PACKAGE_VISIBILITY else Visibilities.PUBLIC
 
-fun IrValueParameter.isInlineParameter(type: IrType = this.type) =
-    index >= 0 && !isNoinline && !type.isNullable() && (type.isFunction() || type.isSuspendFunctionTypeOrSubtype())
-
 val IrType.isBoxedArray: Boolean
     get() = classOrNull?.owner?.fqNameWhenAvailable == KotlinBuiltIns.FQ_NAMES.array.toSafe()
 

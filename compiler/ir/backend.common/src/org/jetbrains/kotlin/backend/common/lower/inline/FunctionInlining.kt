@@ -9,6 +9,7 @@ package org.jetbrains.kotlin.backend.common.lower.inline
 import org.jetbrains.kotlin.backend.common.*
 import org.jetbrains.kotlin.backend.common.ir.Symbols
 import org.jetbrains.kotlin.backend.common.ir.createTemporaryVariableWithWrappedDescriptor
+import org.jetbrains.kotlin.backend.common.ir.isInlineParameter
 import org.jetbrains.kotlin.backend.common.lower.CoroutineIntrinsicLambdaOrigin
 import org.jetbrains.kotlin.backend.common.lower.createIrBuilder
 import org.jetbrains.kotlin.config.languageVersionSettings
@@ -319,9 +320,6 @@ class FunctionInlining(val context: CommonBackendContext) : IrElementTransformer
         }
 
         //-------------------------------------------------------------------------//
-
-        private fun IrValueParameter.isInlineParameter() =
-            !isNoinline && !type.isNullable() && (type.isFunction() || type.isSuspendFunction())
 
         private inner class ParameterToArgument(
             val parameter: IrValueParameter,
