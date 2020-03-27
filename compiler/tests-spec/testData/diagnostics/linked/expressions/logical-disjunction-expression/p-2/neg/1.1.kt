@@ -5,7 +5,7 @@
 /*
  * KOTLIN DIAGNOSTICS SPEC TEST (NEGATIVE)
  *
- * SPEC VERSION: 0.1-218
+ * SPEC VERSION: 0.1-312
  * PLACE: expressions, logical-disjunction-expression -> paragraph 2 -> sentence 1
  * RELEVANT PLACES: expressions, logical-disjunction-expression -> paragraph 2 -> sentence 2
  * NUMBER: 1

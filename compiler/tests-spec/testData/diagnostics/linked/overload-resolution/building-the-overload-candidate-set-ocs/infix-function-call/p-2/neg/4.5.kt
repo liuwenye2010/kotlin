@@ -3,34 +3,31 @@
 // SKIP_TXT
 
 /*
- * KOTLIN DIAGNOSTICS SPEC TEST (POSITIVE)
+ * KOTLIN DIAGNOSTICS SPEC TEST (NEGATIVE)
  *
- * SPEC VERSION: 0.1-268
- * PLACE: overload-resolution, building-the-overload-candidate-set-ocs, infix-function-call -> paragraph 2 -> sentence 3
+ * SPEC VERSION: 0.1-312
+ * PLACE: overload-resolution, building-the-overload-candidate-set-ocs, infix-function-call -> paragraph 2 -> sentence 4
  * RELEVANT PLACES: overload-resolution, building-the-overload-candidate-set-ocs, infix-function-call -> paragraph 2 -> sentence 1
  * overload-resolution, building-the-overload-candidate-set-ocs, infix-function-call -> paragraph 2 -> sentence 2
  * overload-resolution, building-the-overload-candidate-set-ocs, call-with-an-explicit-receiver -> paragraph 6 -> sentence 5
- *
  * NUMBER: 5
- * DESCRIPTION: Star-imported infix extension callables
+ * DESCRIPTION: Star-imported extension callable only
  */
 
 // FILE: Extensions.kt
 package libPackage
 
-infix operator fun CharSequence.contains(regex: Regex): Boolean {
+private infix operator fun CharSequence.contains(regex: Regex): Boolean {
     println("my contains")
     return true
 }
 
-// FILE: TestCase1.kt
-// TESTCASE NUMBER: 1
-
+// FILE: TestCase2.kt
 package sentence3
-import libPackage.*
+import libPackage.* //nothing to import, extension is private
 
+// TESTCASE NUMBER: 1
 fun case1() {
     val regex = Regex("")
-    <!DEBUG_INFO_CALL("fqName: libPackage.contains; typeCall: infix operator extension function")!>"" contains  regex<!>
+    "" <!INFIX_MODIFIER_REQUIRED!>contains<!> regex
 }
-

@@ -93,11 +93,25 @@
           "unexpectedBehaviour": false
         }
       ],
-      "7": [
+      "10": [
         {
-          "specVersion": "0.1-201",
+          "specVersion": "0.1-312",
           "casesNumber": 3,
           "description": "\u0027When\u0027 with bound value and with else branch not in the last position.",
+          "unexpectedBehaviour": false
+        },
+        {
+          "specVersion": "0.1-152",
+          "casesNumber": 0,
+          "description": "When",
+          "path": "compiler/testData/diagnostics/tests/when/When.kt",
+          "unexpectedBehaviour": false
+        },
+        {
+          "specVersion": "0.1-152",
+          "casesNumber": 0,
+          "description": "Redundant else",
+          "path": "compiler/testData/diagnostics/tests/when/RedundantElse.kt",
           "unexpectedBehaviour": false
         }
       ],
@@ -161,22 +175,6 @@
           "path": "compiler/testData/diagnostics/tests/when/When.kt",
           "unexpectedBehaviour": false
         }
-      ],
-      "10": [
-        {
-          "specVersion": "0.1-152",
-          "casesNumber": 0,
-          "description": "When",
-          "path": "compiler/testData/diagnostics/tests/when/When.kt",
-          "unexpectedBehaviour": false
-        },
-        {
-          "specVersion": "0.1-152",
-          "casesNumber": 0,
-          "description": "Redundant else",
-          "path": "compiler/testData/diagnostics/tests/when/RedundantElse.kt",
-          "unexpectedBehaviour": false
-        }
       ]
     },
     "pos": {
@@ -185,6 +183,26 @@
           "specVersion": "0.1-201",
           "casesNumber": 2,
           "description": "\u0027When\u0027 without bound value and with else branch in the last position.",
+          "unexpectedBehaviour": false
+        }
+      ],
+      "10": [
+        {
+          "specVersion": "0.1-312",
+          "casesNumber": 3,
+          "description": "\u0027When\u0027 with bound value and else branch.",
+          "unexpectedBehaviour": false
+        },
+        {
+          "specVersion": "0.1-201",
+          "casesNumber": 26,
+          "description": "\u0027When\u0027 with different variants of the arithmetic expressions (additive expression and multiplicative expression) in \u0027when condition\u0027.",
+          "unexpectedBehaviour": true
+        },
+        {
+          "specVersion": "0.1-201",
+          "casesNumber": 23,
+          "description": "\u0027When\u0027 with enumeration of the different variants of expressions in \u0027when condition\u0027.",
           "unexpectedBehaviour": false
         }
       ],
@@ -235,20 +253,6 @@
           "unexpectedBehaviour": false
         }
       ],
-      "10": [
-        {
-          "specVersion": "0.1-201",
-          "casesNumber": 26,
-          "description": "\u0027When\u0027 with different variants of the arithmetic expressions (additive expression and multiplicative expression) in \u0027when condition\u0027.",
-          "unexpectedBehaviour": true
-        },
-        {
-          "specVersion": "0.1-201",
-          "casesNumber": 23,
-          "description": "\u0027When\u0027 with enumeration of the different variants of expressions in \u0027when condition\u0027.",
-          "unexpectedBehaviour": false
-        }
-      ],
       "3": [
         {
           "specVersion": "0.1-296",
@@ -260,14 +264,6 @@
           "specVersion": "0.1-296",
           "casesNumber": 2,
           "description": "\u0027When\u0027 with bound value and enumeration of the containment operators.",
-          "unexpectedBehaviour": false
-        }
-      ],
-      "7": [
-        {
-          "specVersion": "0.1-201",
-          "casesNumber": 3,
-          "description": "\u0027When\u0027 with bound value and else branch.",
           "unexpectedBehaviour": false
         }
       ],
@@ -360,7 +356,7 @@
     "neg": {
       "1": [
         {
-          "specVersion": "0.1-218",
+          "specVersion": "0.1-312",
           "casesNumber": 4,
           "description": " it is possible to  replace the else condition with an always-true condition",
           "unexpectedBehaviour": false
@@ -370,7 +366,7 @@
     "pos": {
       "1": [
         {
-          "specVersion": "0.1-218",
+          "specVersion": "0.1-312",
           "casesNumber": 4,
           "description": " it is possible to  replace the else condition with an always-true condition",
           "unexpectedBehaviour": false
@@ -526,13 +522,13 @@
     "pos": {
       "1": [
         {
-          "specVersion": "0.1-100",
+          "specVersion": "0.1-312",
           "casesNumber": 2,
           "description": "\u0027When\u0027 with bound value and allowed break and continue expression (without labels) in the control structure body.",
           "unexpectedBehaviour": false
         },
         {
-          "specVersion": "0.1-100",
+          "specVersion": "0.1-312",
           "casesNumber": 25,
           "description": "\u0027When\u0027 with bound value and with different variants of expressions in the control structure body.",
           "unexpectedBehaviour": true

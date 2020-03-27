@@ -5,14 +5,14 @@
 /*
  * KOTLIN DIAGNOSTICS SPEC TEST (POSITIVE)
  *
- * SPEC VERSION: 0.1-268
- * PLACE: overload-resolution, building-the-overload-candidate-set-ocs, infix-function-call -> paragraph 2 -> sentence 3
+ * SPEC VERSION: 0.1-312
+ * PLACE: overload-resolution, building-the-overload-candidate-set-ocs, infix-function-call -> paragraph 2 -> sentence 4
  * RELEVANT PLACES: overload-resolution, building-the-overload-candidate-set-ocs, infix-function-call -> paragraph 2 -> sentence 1
  * overload-resolution, building-the-overload-candidate-set-ocs, infix-function-call -> paragraph 2 -> sentence 2
- * overload-resolution, building-the-overload-candidate-set-ocs, call-with-an-explicit-receiver -> paragraph 6 -> sentence 3
+ * overload-resolution, building-the-overload-candidate-set-ocs, call-with-an-explicit-receiver -> paragraph 6 -> sentence 4
  *
- * NUMBER: 3
- * DESCRIPTION: Explicitly imported infix extension callables
+ * NUMBER: 4
+ * DESCRIPTION: Star-imported infix extension callables
  */
 
 // FILE: Extensions.kt
@@ -35,27 +35,25 @@ infix operator fun CharSequence.contains(regex: Regex): Boolean {
 // TESTCASE NUMBER: 1
 
 package sentence3
-import libPackage.contains
+import libPackage.*
 
 
 fun case1() {
     val regex = Regex("")
-    <!DEBUG_INFO_CALL("fqName: libPackage.contains; typeCall: infix operator extension function")!>"" contains  regex<!>
+    <!DEBUG_INFO_CALL("fqName: sentence3.contains; typeCall: infix operator extension function")!>"" contains  regex<!>
 }
 
 // FILE: TestCase2.kt
 // TESTCASE NUMBER: 2
+package testPack
+import libPackage.*
 
-package sentence3
-import libPackage.contains
-
-
-fun case2() {
-    infix operator fun CharSequence.contains(regex: Regex): Boolean {
-        println("my local contains")
-        return true
-    }
-    val regex = Regex("")
-    <!DEBUG_INFO_CALL("fqName: sentence3.case2.contains; typeCall: infix operator extension function")!>"" contains  regex<!>
+infix operator fun CharSequence.contains(regex: Regex): Boolean {
+    println("my package scope top level contains")
+    return true
 }
 
+fun case2() {
+    val regex = Regex("")
+    <!DEBUG_INFO_CALL("fqName: testPack.contains; typeCall: infix operator extension function")!>"" contains  regex<!>
+}
